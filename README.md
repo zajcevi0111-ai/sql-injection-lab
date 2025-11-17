@@ -6,6 +6,6 @@
 3. Open: http://localhost:5000
 
 ## Team
-- [Name 1] - Database
+- Зайцев Иван - Database
 - [Name 2] - Flask 
 - [Name 3] - Documentation
