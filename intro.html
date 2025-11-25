@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Для Лены</title>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			text-align: center;
+			font-family: 'Arial', sans-serif;
+			overflow: hidden;
+			transition: background 1s ease-in-out, color 1s ease-in-out;
+			position: relative;
+		}
+
+		.container {
+			background: rgba(255, 255, 255, 0.92);
+			padding: 30px;
+			border-radius: 15px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+			max-width: 500px;
+			opacity: 0;
+			transform: translateY(15px);
+			animation: fadeIn 1.5s forwards;
+			position: relative;
+			z-index: 2;
+		}
+
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+				transform: translateY(15px);
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		h1, .message {
+			transition: color 1s ease-in-out;
+		}
+
+		button {
+			margin-top: 20px;
+			padding: 12px 25px;
+			background: #d77a61;
+			color: white;
+			font-size: 16px;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background 0.3s;
+		}
+
+			button:hover {
+				background: #b45e4b;
+			}
+
+		/* Анимация частиц */
+		.particles {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 1;
+		}
+
+		.particle {
+			position: absolute;
+			width: 5px;
+			height: 5px;
+			background: white;
+			border-radius: 50%;
+			opacity: 0.8;
+			animation: floatParticles linear infinite;
+		}
+
+		@keyframes floatParticles {
+			0% {
+				transform: translateY(100vh) translateX(0) scale(1);
+				opacity: 0;
+			}
+
+			50% {
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateY(-10vh) translateX(calc(-50vw + 100px)) scale(1.5);
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="particles"></div>
+	<div class="container">
+		<h1 id="greeting">Привет, Лена!</h1>
+		<p id="message" class="message">Этот сайт создан специально для тебя.</p>
+		<p id="message" class="message">Иногда он будет обновляться специально для тебя.</p>
+		<button onclick="goNext()">Продолжить</button>
+	</div>
+
+	<script>
+		function updateTheme() {
+			const hour = new Date().getHours();
+			let gradient = "";
+			let textColor = "";
+
+			if (hour >= 5 && hour < 12) {
+				gradient = "linear-gradient(to right, #f6d365, #fda085)"; // Утро ☀️
+				textColor = "#3b1d10";
+				document.getElementById("greeting").textContent = "Доброе утро, Лена! ☀️";
+			} else if (hour >= 12 && hour < 18) {
+				gradient = "linear-gradient(to right, #ff9a9e, #fad0c4)"; // День 🌤
+				textColor = "#7a1b5f";
+				document.getElementById("greeting").textContent = "Добрый день, Лена! 😊";
+			} else if (hour >= 18 && hour < 23) {
+				gradient = "linear-gradient(to right, #a18cd1, #fbc2eb)"; // Вечер 🌆
+				textColor = "#321e63";
+				document.getElementById("greeting").textContent = "Добрый вечер, Лена! 🌇";
+			} else {
+				gradient = "linear-gradient(to right, #141e30, #243b55)"; // Ночь 🌙
+				textColor = "#c9e3ff";
+				document.getElementById("greeting").textContent = "Доброй ночи, Лена! 🌙";
+			}
+
+			document.body.style.background = gradient;
+			document.getElementById("greeting").style.color = textColor;
+			document.getElementById("message").style.color = textColor;
+		}
+
+		function createParticles() {
+			const container = document.querySelector(".particles");
+
+			for (let i = 0; i < 15; i++) {
+				let particle = document.createElement("div");
+				particle.classList.add("particle");
+				particle.style.left = Math.random() * 100 + "vw";
+				particle.style.animationDuration = Math.random() * 4 + 3 + "s";
+				particle.style.background = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
+				particle.style.width = particle.style.height = Math.random() * 5 + 3 + "px";
+				container.appendChild(particle);
+
+				setTimeout(() => particle.remove(), 7000);
+			}
+		}
+
+		updateTheme();
+		setInterval(createParticles, 1000);
+
+		function goNext() {
+			window.location.href = 'index.html';
+		}
+	</script>
+</body>
+</html>
